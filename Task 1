@@ -1,0 +1,116 @@
+#include <math.h>
+#include <stdio.h>
+int main ()
+{
+	int a, b, c, choice;
+	float x, D, z_Real;
+	printf ("Enter a, b, c\n");
+	scanf("%d%d%d", &a, &b, &c);
+	printf ("The equqation is %d*x^2 + %d*x + %d = 0\n", a, b, c);
+	printf ("Enter 1 if you want to get a solution over real numbers (0 if you want to get a solution over complex numbers)\n");
+	scanf("%d", &choice);
+	if ( choice == 0 || choice == 1)
+	{
+		if ( choice == 1 )		//start of solution in the field of real numbers
+		{
+			if ( a == 0 )		//linear equation solution
+			{
+				if ( b == 0 ) 
+				{
+					if ( c == 0 )
+					{
+						printf ("x belongs to the field of real numbers\n");
+					}
+					else 
+					{
+						printf ("No roots\n");
+					}
+				}
+				else 
+				{
+					if ( c == 0 )
+					{
+						printf ("The root is 0\n");
+					}
+					else
+					{
+						x = (float)(-c)/b;
+						printf ("The root is %f\n", x);
+					}
+				}
+			}						//The end of linear equation solution
+			else					//Quadratic equation solution
+			{
+				D = (float)( b*b - 4*a*c );
+				if ( D < 0 )
+				{
+					printf ("No roots\n");
+				}
+				else
+				{
+					D = sqrt (D);
+					x = (float)((-b + D)/(2*a));
+					printf ("The root is %f\n", x);
+					x = (float)((-b - D)/(2*a));
+					printf ("The root is %f\n", x);
+				}
+			}
+		}		//The end of solution in the field of real numbers
+		else	//Beginning of the solution in the field of complex numbers
+		{
+			if ( a == 0	)		//linear equation solution
+			{
+				if ( b == 0)
+				{
+					if ( c == 0 )
+					{
+						printf ("x belongs to the field of real numbers\n");
+					}
+					else
+					{
+						printf ("No roots\n");
+					}
+				}
+				else
+				{
+					if ( c == 0)
+					{
+						printf ("The root is 0\n");
+					}
+					else
+					{
+						x = (float)(-c)/b;
+						printf ("The root is %f\n", x);
+					}
+				}
+			}				//The end of linear equation solution
+			else			//Quadratic equation solution
+			{
+				D = (float)( b*b - 4*a*c );
+				if ( D > 0 )
+				{
+					D = sqrt (D);
+					x = (float)((-b + D)/(2*a));
+					printf ("The root is %f\n", x);
+					x = (float)((-b - D)/(2*a));
+					printf ("The root is %f\n", x);
+				}
+				else
+				{
+					D = D*(-1);
+					D = sqrt (D);
+					z_Real = (float)(-b)/(2*a);
+					printf ("The root is %f",z_Real );
+					printf (" + i* %f\n",D);
+					printf ("The root is %f",z_Real );
+					printf (" - i* %f\n",D);
+				}
+			}
+		}
+	}			//The end of the solution in the field of complex numbers
+	else
+	{
+		printf ("You entered an invalid value\n");
+	}
+	return 0;
+}
