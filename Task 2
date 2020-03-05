@@ -15,10 +15,10 @@ int main ()
 				{
 					count++;
 				}
-				if (count == 2)
-				{
-					printf ("%d\n", a);
-				}
+			}
+			if (count == 2)
+			{
+				printf ("%d\n", a);
 			}
 			count = 0;
 		}
