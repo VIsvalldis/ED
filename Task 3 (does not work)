@@ -3,8 +3,8 @@
 
 int main ()
 {
-	int n = 3, r=0, k=1;
-	double deg=1, comp=0, val=0;			
+	int n = 3;
+	double deg=1, comp=0, val=0, r=-1, k=1,val_k=0;			
 	double a =10;
 
 	printf (" enter the number of significant numbers\n");
@@ -15,18 +15,23 @@ int main ()
 		deg= deg* a;
 	}
 	deg= 1/deg;
-								//printf ("%.100f", deg);
+	//printf ("n =%.100f\n", deg);
 	if ( n>0)
 	{
 		do
 		{
 			r=r+2;
 			k=k+2;
-			comp=(1/r)-(1/k);
-			val= val+4/r;
+			val= val+4/r;			//val - переменная итогового занчения пи
 			val= val-4/k;
-		} while (comp < deg);
-		printf ("%.100f", val);
+			comp= val-val_k;			//comp переменная сравнения точности
+			comp = fabs ( comp);
+			val_k = val_k- val;
+			val_k =fabs( val_k );
+			printf ("val_k= %f\n", val_k);
+			printf ("comp= %.100f\n", comp);
+		} while (comp > deg);
+		printf ("pi =%.100f\n", val);
 	}
 	else
 	{
