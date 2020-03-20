@@ -3,35 +3,45 @@
 
 int main ()
 {
-	int n = 3;
-	double deg=1, comp=0, val=0, r=-1, k=1,val_k=0;			
-	double a =10;
+	int n = 3,i=1;
+	double deg=1, comp=0, val=0, r=-3, k=-1,val_k=0;			
+	double a =10 , s1=0, s2=0;
 
 	printf (" enter the number of significant numbers\n");
 	printf (" maximum accuracy of one hundred characters\n");
 	scanf ("%d", &n);
-	for (int i=1; i <= n; i++)
+	deg = pow (10.0 , -n);
+	/*for (int i=1; i <= n; i++)
 	{
 		deg= deg* a;
 	}
-	deg= 1/deg;
-	//printf ("n =%.100f\n", deg);
+	deg= 1/deg;*/
+	printf ("n =%.*f\n",n, deg);
 	if ( n>0)
 	{
 		do
 		{
-			r=r+2;
-			k=k+2;
-			val= val+4/r;			//val - переменная итогового занчения пи
-			val= val-4/k;
-			comp= val-val_k;			//comp переменная сравнения точности
-			comp = fabs ( comp);
-			val_k = val_k- val;
-			val_k =fabs( val_k );
-			printf ("val_k= %f\n", val_k);
-			printf ("comp= %.100f\n", comp);
-		} while (comp > deg);
-		printf ("pi =%.100f\n", val);
+			//comp = 0;
+			//r=r+4;
+			//k=k+4;
+			//val= val+4/r;			//val - переменная итогового занчения пи
+			//val= val-4/k;
+			//comp= val-val_k;			//comp переменная сравнения точности
+			//comp = fabs ( comp);
+			//val_k = val;
+			//printf ("val_k= %f\n", val_k);
+		//	printf ("r = %.1lf k = %.1lf \n", r, k);
+
+			s1 = s2+(4.0/(2*i-1));
+		//	val = val + (4.0/(2*i-1));
+			i++;
+			s2 = s1 - (4.0/(2*i-1));
+		//	val = val - (4.0/(2*i-1));
+			i++;
+
+		//	printf ("comp= %.*f\n", n,comp);
+		} while (s1-s2 >= deg);
+		printf ("pi =%.*f\n", n, (s1+s2)/2);
 	}
 	else
 	{
