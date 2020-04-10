@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <math.h>
+
+double func(double x )
+{
+	return x*x + 4*sin(x)-2;   //Функция №10
+}
+
+double dfunc(double x)
+{  
+	return 2*x + 4*cos(x);		//производная фукции #10
+}
+
+double solution (double x , double a )
+{
+	double f = func(a);			// x_(n+1) = x_(n)- f(n)/df(n)	
+	double df = dfunc(a);		//in this program x_(n+1) === a ; x_(n) === a ; f(n)/df(n) === c
+	double order = pow(10, -x);
+	double c = 0;
+	double b = 0;
+	double csr = 0;				// for comparison 
+
+	int i = 0;					// loop protection
+	do
+	{
+		c = func(a)/dfunc(a);		//ошибка, с не меняется, а должно менятся
+		csr = fabs (c);
+		b = a - c;
+		a = b;
+		i++;
+	}	while (csr > order || i > 1000000);
+	return b;
+
+}
+
+int main()
+{
+	int accuracy;
+	double initial_value;
+	printf("Enter calculation accuracy\n It must be a positive integer\n Enter the initial approximation of the root\n For example 1\n");
+	scanf("%d%lf",&accuracy, &initial_value);
+	if (accuracy > 0 )
+	{
+		printf("x = %.*lf\n", accuracy, solution(accuracy,initial_value));
+	}
+	else
+	{
+		printf("You entered an invalid value\n");
+	}
+	return 0;
+}
