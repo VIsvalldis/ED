@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <math.h>
+
+double func (double x)
+{
+	return x*x + 4*sin(x)-2;		//Взял функцию из прошлого примера
+}
+
+int main ()
+{
+	double lim1, lim2, L, change, x, xp, s, sum = 0;
+	int N,i;
+
+	printf ("This program considers a certain integral of a predefined function\n ");
+	printf ("Enter the integration limits and the number of partitions, the number of partitions must be a natural number\n");
+	scanf ("%lf%lf%d" , &lim1, &lim2, &N);
+
+	if (lim1 == lim2)
+	{
+		printf("The integral is zero\n");
+		return 0;
+	}
+	if (lim1 > lim2)		//change variables if they are not in the correct order
+	{
+		change = lim1;
+		lim1 = lim2;
+		lim2 = change;
+	}
+
+	L = (lim2 - lim1)/N;
+
+	for (i = 0; i < N; i++ )
+	{
+		x = lim1 + i*L;
+		xp = lim1 + (i + 1)*L;
+		s = (L*( func(x) + func(xp)))/2;
+		sum = sum + s;
+	}
+	printf ("the integral is: %lf\n", sum);
+	return 0;
+}
