@@ -15,7 +15,7 @@ int main ()
 	printf ("Enter the integration limits and the number of partitions, the number of partitions must be a natural number\n");
 	scanf ("%lf%lf%d" , &lim1, &lim2, &N);
 
-	if (lim1 == lim2)
+	if (lim1 == lim2)		// trivial case
 	{
 		printf("The integral is zero\n");
 		return 0;
@@ -25,6 +25,11 @@ int main ()
 		change = lim1;
 		lim1 = lim2;
 		lim2 = change;
+	}
+	if (N < 1)
+	{
+		printf("You entered an invalid value for the partitions\n");
+		return 0;
 	}
 
 	L = (lim2 - lim1)/N;
