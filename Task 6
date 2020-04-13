@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <math.h>
+#define SIZE 7
+
+int max (int arr[], int EntSiz)					//функция для нахождения максимального значения в массиве
+{
+	int i, m;
+	m = arr[0];
+	for (i = 0; i < EntSiz; i++ )
+	{
+		if (arr[i] > m)
+		{
+			m = arr[i];
+		}
+	}
+	return m;
+}
+
+int min (int arr[], int EntSiz)					//функция для нахождения минимального значения в массиве
+{
+	int i, m;
+	m = arr[0];
+	for (i = 0; i < EntSiz; i++)
+	{
+		if (arr[i] < m)
+		{
+			m = arr[i];
+		}
+	}
+	return m;
+}
+
+
+double middle ( int arr[], int EntSiz)			//функция для расчета среднего значения элементов массива
+{
+	int i;
+	double sum = 0;
+	for (i = 0; i < EntSiz; i++)
+	{
+		sum = sum + arr[i];
+	}
+	sum = sum/(double)EntSiz;
+	return sum;
+}
+
+double StandDev (int arr[], int EntSiz)			//функция для расчета среднеквдратичного значения элементов массива
+{
+	int i;
+	double val,sum = 0, mid;
+	mid = middle (arr,EntSiz);
+	for (i = 0; i < EntSiz; i++)
+	{
+		val = arr[i] - mid;
+		val = (double)pow ((double)val, 2.0);
+		sum = sum + val;
+	}
+	val = sum/((double)EntSiz);
+	val = (double)pow ((double)val, 0.5);
+	return val;
+}
+
+int main ()
+{
+	int i, arr[SIZE], EntSiz;
+
+	printf("Enter the size of the array \n");
+	printf("array size must be a positive integer (maximum %d size allowed) \n", SIZE);
+	scanf("%d",&EntSiz);
+
+
+
+	if (EntSiz < 1 || EntSiz > SIZE)			//Проверка корректности ввода размера массива
+	{
+		printf("You entered an invalid array size\n");
+		return 0;
+	}
+	
+
+	for (i = 0; i < EntSiz; i++)
+	{
+		printf("Enter %d  (integer) items :\n", i);
+		scanf("%d",&arr[i]);		
+	}
+	for (i = EntSiz ; i < SIZE  ; i++)
+	{
+		arr[i] = 0;		
+	}
+
+
+	printf("The maximum element of the array is: %d\n", max (arr,EntSiz ));			//вывод наибольшего значения из массива
+	printf("The minimum element of the array is: %d\n", min (arr,EntSiz ));			//вывод наименьшего значения из массива
+	printf("Average value is: %f\n", middle (arr,EntSiz));							//вывод среднего значения массива
+	printf("Standard deviation is: %f", StandDev (arr,EntSiz));						//вывод среднеквадратичного значения массива
+
+
+	//for (i=0; i<SIZE; i++)														//выводит элементы массива (для проверки корректности)
+	//{
+	//	printf("%d\n",arr[i]);
+	//}
+	return 0;
+}
