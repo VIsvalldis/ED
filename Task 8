@@ -1,0 +1,155 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
+
+void sort (int*, int, void(int*, int));
+void up (int*, int);
+void down (int*, int);
+void abs (int*, int);
+
+int main ()
+{
+	int a,b, Length,ch, i,sorting_selection, cycle = 1;
+	srand(time(NULL));
+	printf("Enter the size of the array(it must be a positive integer):\n");
+	scanf("%d",&Length);
+
+	if (Length < 1)		//Проверка корректности ввода длины массива
+	{
+		printf("You entered an invalid array size value\n");
+		return 0;
+	}
+
+	int* arr = (int*) malloc(Length * sizeof(int));
+
+	if (arr == NULL)	//Проверка, выделилась ли память под массив
+	{
+		printf("Error: no memory");
+		exit(1);
+	}
+
+
+	printf("Enter range for array elements (it must be a real number) :\n");
+	scanf("%d%d",&a,&b);
+
+	if (a > b)			//Перезапись диапазона значений если пределы введены не в том порядке
+	{
+		ch = b;
+		b = a;
+		a = ch;
+	}
+
+	for (i = 0; i < Length; i++)		//заполнение массива псевдослучайными числами
+	{
+		arr[i] = a + rand()%(b - a +1);
+	}
+
+	printf("Unsorted array\n");
+	for (i = 0; i < Length; i++)		//вывод несортированного массива
+	{
+		printf("items %d = %d \n",i, arr[i]);
+	}
+
+	printf("\nHow do you want to sort the array?\nEnter the appropriate numbe:\n1)Descending\n2)Ascending\n3)By absolute value\n");
+	scanf("%d",&sorting_selection);
+	if (sorting_selection != 1 && sorting_selection != 2 && sorting_selection != 3)
+	{
+		printf("You entered an invalid value to select a sort\n");
+		return 0;
+	}
+	if (sorting_selection == 1)
+	{
+		sort (arr, Length, down);
+	}
+
+	if (sorting_selection == 2)
+	{
+		sort (arr, Length, up);
+	}
+
+	if (sorting_selection == 3)
+	{
+		sort (arr, Length, abs);
+	}
+
+	printf("Sorted array\n");
+	for (i = 0; i < Length; i++)		//вывод сортированного массива
+	{
+		printf("items %d = %d \n",i, arr[i]);
+	}
+	free(arr);
+	return 0;
+}
+
+
+void sort (int* Array, int N, void fun(int*, int)) 
+{
+	fun(Array, N);
+}
+
+void up(int data[], int len)
+{
+	int tmp = 0;
+	int flag = 0;
+	for (int i=0; i<len; i++)
+	{
+		flag = 0;
+		for(int j = 0; j<len-i-1; j++)
+		{
+			if(data[j]>data[j+1])
+			{
+				flag = 1;
+				tmp = data[j];
+				data[j] = data[j+1];
+				data[j+1] = tmp;
+			}
+		}
+		if (flag == 0)
+		break;
+	}
+}
+
+void down(int data[], int len)
+{
+	int tmp = 0;
+	int flag = 0;
+	for (int i=0; i<len; i++)
+	{
+		flag = 0;
+		for(int j = 0; j<len-i-1; j++)
+		{
+			if(data[j]<data[j+1])
+			{
+				flag = 1;
+				tmp = data[j];
+				data[j] = data[j+1];
+				data[j+1] = tmp;
+			}
+		}
+		if (flag == 0)
+		break;
+	}
+}
+
+void abs(int data[], int len)
+{
+	int tmp = 0;
+	int flag = 0;
+	for (int i=0; i<len; i++)
+	{
+		flag = 0;
+		for(int j = 0; j<len-i-1; j++)
+		{
+			if(abs(data[j]) > abs(data[j+1]))
+			{
+				flag = 1;
+				tmp = data[j];
+				data[j] = data[j+1];
+				data[j+1] = tmp;
+			}
+		}
+		if (flag == 0)
+		break;
+	}
+}
