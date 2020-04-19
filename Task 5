@@ -9,7 +9,7 @@ double func (double x)
 int main ()
 {
 	double lim1, lim2, L, change, x, xp, s, sum = 0;
-	int N,i;
+	int N,i, cycle = 1;
 
 	printf ("This program considers a certain integral of a predefined function\n ");
 	printf ("Enter the integration limits and the number of partitions, the number of partitions must be a natural number\n");
@@ -28,8 +28,15 @@ int main ()
 	}
 	if (N < 1)
 	{
-		printf("You entered an invalid value for the partitions\n");
-		return 0;
+		while (cycle == 1)
+		{
+			printf("You have entered an invalid value for splitting the integral, please enter a valid value (positive integer):\n");
+			scanf ("%d" ,&N);
+			if (N > 0) 
+			{
+				break;
+			}
+		}
 	}
 
 	L = (lim2 - lim1)/N;
