@@ -3,10 +3,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-void sort (int*, int, void(int*, int));
-void up (int*, int);
-void down (int*, int);
-void abs (int*, int);
+void sort (int*, int, int(int*, int));
+int up (int*, int);
+int down (int*, int);
+int abs (int*, int);
+void replace (int*, int);
 
 int main ()
 {
@@ -83,26 +84,18 @@ int main ()
 }
 
 
-void sort (int* Array, int N, void fun(int*, int)) 
+void sort (int* data, int len, int fun(int*, int)) 
 {
-	fun(Array, N);
-}
-
-void up(int data[], int len)
-{
-	int tmp = 0;
 	int flag = 0;
 	for (int i=0; i<len; i++)
 	{
 		flag = 0;
 		for(int j = 0; j<len-i-1; j++)
 		{
-			if(data[j]>data[j+1])
+			if(fun(data, j) == 1)
 			{
 				flag = 1;
-				tmp = data[j];
-				data[j] = data[j+1];
-				data[j+1] = tmp;
+				replace(data, j);
 			}
 		}
 		if (flag == 0)
@@ -110,46 +103,37 @@ void up(int data[], int len)
 	}
 }
 
-void down(int data[], int len)
+void replace (int* data, int j)
 {
 	int tmp = 0;
-	int flag = 0;
-	for (int i=0; i<len; i++)
-	{
-		flag = 0;
-		for(int j = 0; j<len-i-1; j++)
-		{
-			if(data[j]<data[j+1])
-			{
-				flag = 1;
-				tmp = data[j];
-				data[j] = data[j+1];
-				data[j+1] = tmp;
-			}
-		}
-		if (flag == 0)
-		break;
-	}
+	tmp = data[j];
+	data[j] = data[j+1];
+	data[j+1] = tmp;
 }
 
-void abs(int data[], int len)
+int up(int* data, int j)
 {
-	int tmp = 0;
-	int flag = 0;
-	for (int i=0; i<len; i++)
+	if (data[j]>data[j+1])
 	{
-		flag = 0;
-		for(int j = 0; j<len-i-1; j++)
-		{
-			if(abs(data[j]) > abs(data[j+1]))
-			{
-				flag = 1;
-				tmp = data[j];
-				data[j] = data[j+1];
-				data[j+1] = tmp;
-			}
-		}
-		if (flag == 0)
-		break;
+		return 1;
 	}
+	else return 0;
+}
+
+int down(int* data, int j)
+{
+	if (data[j]<data[j+1])
+	{
+		return 1;
+	}
+	else return 0;
+}
+
+int abs(int* data, int j)
+{
+	if (abs (data[j]) > abs(data[j+1]))
+	{
+		return 1;
+	}
+	else return 0;
 }
